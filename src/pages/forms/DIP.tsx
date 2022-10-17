@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import { FormControl, TextField, Paper, Container } from '@mui/material';
 import Participant from "../../components/Participant"
-
-type Participant = {
-  name: string,
-  email: string,
-}
+import { iParticipant } from '../../typings/typings';
 
 const DIP = () => {
-  const [dipParticipants, setDipParticipants] = useState<Participant[]>()
+  const [dipParticipants, setDipParticipants] = useState<iParticipant[]>()
+
+  const handleParticipant = (participant: iParticipant) => {
+    dipParticipants?.push(participant)
+    setDipParticipants(dipParticipants)
+  }
 
   return (
     <Container>
@@ -22,7 +23,7 @@ const DIP = () => {
         </FormControl>
         <h1>Participantes da DIP</h1>
         {dipParticipants?.map(participant => {
-          return <Participant />
+          return <Participant addParticipant={handleParticipant} />
         })}
       </Paper>
     </Container>
