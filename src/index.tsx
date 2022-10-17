@@ -5,7 +5,7 @@ import {
   RouterProvider,
   Route,
 } from "react-router-dom";
-import SelfForm from "./pages/forms/SelfForm"
+import DIP from "./pages/forms/DIP"
 import Login from "./pages/Login"
 import Search from "./pages/Search"
 import Home from "./pages/Home"
@@ -24,13 +24,9 @@ const router = createBrowserRouter([
     element: <Search />,
   },
   {
-    path: "/form-for-myself",
-    element: <SelfForm />,
-  },
-  {
-    path: "/form-for-others",
-    element: <SelfForm />,
-  },
+    path: "/dip",
+    element: <DIP />,
+  }
 ]);
 
 const root = ReactDOM.createRoot(

@@ -4,9 +4,8 @@ import { Button } from '@mui/material';
 const Home = () => {
   return (
     <>
-      <h1>Home</h1>
-      <Button variant="outlined" href={"form-for-myself"}>Para mim</Button>
-      <Button variant="outlined" href={"form-for-others"}>Para terceiros</Button>
+      <h1>Sistema de Cadastro da DIP</h1>
+      <Button variant="outlined" href={"dip"}>Cadastrar DIP</Button>
     </>
   )
 }
