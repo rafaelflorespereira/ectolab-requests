@@ -2,22 +2,21 @@ import React, { useState } from "react";
 import { FormControl, TextField, Paper, Container, Button } from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Participant from "../../components/Participant";
-import { IParticipant } from "../../typings/typing";
-
-const defaultParticipant: IParticipant = {
-  name: " ",
-  email: " ",
-  role: " ",
-  dipNumber: " "
-}
+import { IParticipant, defaultParticipant } from "../../typings/typing";
 
 const DIP: React.FC = () => {
   const [dipParticipants, setDipParticipants] = useState<IParticipant[]>([]);
 
   const subParticipant = (index: number) => {
-    const removedParticipants = dipParticipants?.splice(index, -1)
-    setDipParticipants(removedParticipants);
+    dipParticipants?.splice(index, 1)
+    console.log("dipParticipants", dipParticipants)
+    setDipParticipants([...dipParticipants]);
   };
+
+  const updateParticipants = (participant: IParticipant, index: number) => {
+    dipParticipants[index] = participant
+    setDipParticipants([...dipParticipants])
+  }
 
   const addParticipant = () => {
     setDipParticipants([...dipParticipants, defaultParticipant])
@@ -44,10 +43,11 @@ const DIP: React.FC = () => {
         </Button>
         {dipParticipants?.map((participant, index) =>
           <div key={index}>
-            <h1 >{index}</h1>
             <Participant
               {...participant}
-              // removeParticipant={subParticipant(index)}
+              index={index}
+              updateParticipant={(param: IParticipant, index: number) => updateParticipants(param, index)}
+              removeParticipant={(id: number) => subParticipant(id)}
             />
           </div>
         )}

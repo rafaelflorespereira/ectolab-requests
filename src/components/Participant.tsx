@@ -1,41 +1,54 @@
 import React, { useState } from 'react'
-import { TextField } from '@mui/material';
-import { ParticipantTypes, ParticipantPropsTypes, IParticipant } from '../typings/typing';
+import { TextField, Button } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { ParticipantPropsTypes, ParticipantTypes } from '../typings/typing';
 
-const Participant: React.FC<IParticipant> = ({ ...defaultParticipant }) => {
-  // const [participant, setParticipant] = useState(defaultParticipant)
+const Participant: React.FC<ParticipantPropsTypes> = ({ ...defaultParticipant }) => {
+  const [participant, setParticipant] = useState(defaultParticipant)
 
-  // const handleParticipant = (value: string, type: ParticipantTypes) => {
-  //   const newParticipant: React.SetStateAction<ParticipantPropsTypes> = participant
-  //   newParticipant[type] = value
-  //   setParticipant(newParticipant)
-  // }
+  const handleParticipant = (value: string, type: ParticipantTypes) => {
+    const newParticipant: React.SetStateAction<ParticipantPropsTypes> = participant
+    newParticipant[type] = value
+    setParticipant({ ...newParticipant }) //when destructuring it creates an entire new object so it doesnt passes it pointer
+    defaultParticipant.updateParticipant({ ...newParticipant }, defaultParticipant.index)
+  }
 
   return (
     <>
-      <h1>Participante</h1>
+      <h1>Participante #{defaultParticipant.index}</h1>
       <TextField
-        label="Nome"
+        label="Nome Completo"
         variant="outlined"
-        value={defaultParticipant.name}
+        type="text"
+        placeholder='Nome Completo'
+        value={participant.name}
+        onChange={(event) => handleParticipant(event?.target.value, 'name')}
       />
       <TextField
         label="E-mail"
         variant='outlined'
-        value={defaultParticipant.email}
+        type="email"
+        value={participant.email}
+        onChange={(event) => handleParticipant(event?.target.value, 'email')}
       />
       <TextField
+        type="text"
         label="Função"
+        placeholder='Função'
         variant='outlined'
-        value={defaultParticipant.role}
+        value={participant.role}
+        onChange={(event) => handleParticipant(event?.target.value, 'role')}
       />
       <TextField
         label="Número da DIP"
         variant='outlined'
         type={"number"}
-        value={defaultParticipant.dipNumber}
+        value={participant.dipNumber}
+        onChange={(event) => handleParticipant(event?.target.value, 'dipNumber')}
       />
-      {/* <button onClick={() => defaultParticipant.removeParticipant}>add</button> */}
+      <Button variant="contained" onClick={() => defaultParticipant.removeParticipant(defaultParticipant.index)} >
+        <DeleteIcon />
+      </Button>
     </>
   )
 }
