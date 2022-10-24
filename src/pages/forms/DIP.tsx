@@ -1,14 +1,26 @@
-import { useState } from 'react'
-import { FormControl, TextField, Paper, Container } from '@mui/material';
-import Participant from "../../components/Participant"
-import { iParticipant } from '../../typings/typings';
+import React, { useState } from "react";
+import { FormControl, TextField, Paper, Container, Button } from "@mui/material";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import Participant from "../../components/Participant";
+import { IParticipant } from "../../typings/typing";
 
-const DIP = () => {
-  const [dipParticipants, setDipParticipants] = useState<iParticipant[]>()
+const defaultParticipant: IParticipant = {
+  name: " ",
+  email: " ",
+  role: " ",
+  dipNumber: " "
+}
 
-  const addParticipant = (participant: iParticipant) => {
-    dipParticipants?.push(participant)
-    setDipParticipants(dipParticipants)
+const DIP: React.FC = () => {
+  const [dipParticipants, setDipParticipants] = useState<IParticipant[]>([]);
+
+  const subParticipant = (index: number) => {
+    const removedParticipants = dipParticipants?.splice(index, -1)
+    setDipParticipants(removedParticipants);
+  };
+
+  const addParticipant = () => {
+    setDipParticipants([...dipParticipants, defaultParticipant])
   }
 
   return (
@@ -17,23 +29,31 @@ const DIP = () => {
         <h1>Inscrição da DIP</h1>
         <FormControl>
           <TextField label="Data" variant="outlined" />
-          <TextField label="Cidade" variant='outlined' />
-          <TextField label="Local" variant='outlined' />
-          <TextField label="Número da DIP" variant='outlined' type={"number"} />
+          <TextField label="Cidade" variant="outlined" />
+          <TextField label="Local" variant="outlined" />
+          <TextField label="Número da DIP" variant="outlined" type={"number"} />
         </FormControl>
+
         <h1>Participantes da DIP</h1>
-        {dipParticipants?.map(participant => {
-          return <Participant
-            name={participant.name}
-            email={participant.email}
-            role={participant.role}
-            dipNumber={participant.dipNumber}
-            addParticipant={addParticipant} 
-          />
-        })}
+        <Button
+          variant="contained"
+          onClick={() => addParticipant()}
+          endIcon={<AddCircleIcon />}
+        >
+          Adicionar
+        </Button>
+        {dipParticipants?.map((participant, index) =>
+          <div key={index}>
+            <h1 >{index}</h1>
+            <Participant
+              {...participant}
+              // removeParticipant={subParticipant(index)}
+            />
+          </div>
+        )}
       </Paper>
     </Container>
-  )
-}
+  );
+};
 
-export default DIP
+export default DIP;
