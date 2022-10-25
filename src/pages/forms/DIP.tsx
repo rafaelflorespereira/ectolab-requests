@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FormControl,
   TextField,
@@ -20,20 +20,21 @@ import Participant from "../../components/Participant";
 
 const DIP: React.FC = () => {
   const [dip, setDip] = useState<DipType>(defaultDip)
-  const [dipParticipants, setDipParticipants] = useState<IParticipant[]>([]);
+  const [showParticipants, setShowParticipants] = useState<boolean>(false)
 
-  const subParticipant = (index: number) => {
-    dipParticipants?.splice(index, 1)
-    setDipParticipants([...dipParticipants]);
-  };
 
-  const updateParticipants = (participant: IParticipant, index: number) => {
-    dipParticipants[index] = participant
-    setDipParticipants([...dipParticipants])
+  // simple validation checking only if the form is not empty
+  const isDipValid = () => {
+    for (const dipProperty in dip) {
+      if (dipProperty) {
+        setShowParticipants(true)
+      }
+    }
   }
 
-  const addParticipant = () => {
-    setDipParticipants([...dipParticipants, defaultParticipant])
+  const handleDipSubmit = (event: React.FormEvent) => {
+    event.preventDefault()
+    isDipValid()
   }
 
   const handleDip = (value: string, type: DipTypes) => {
@@ -44,53 +45,45 @@ const DIP: React.FC = () => {
 
   return (
     <Container sx={{ minWidth: 120, p: 10 }}>
-      <Paper sx={{ p: 4 }} elevation={10}>
-
-        <h2>Inscrição da DIP</h2>
-
-        <TextField
-          label="Data"
-          variant="outlined"
-          value={dip.date}
-          onChange={(event) => handleDip(event.target.value, "date")}
-        />
-        <TextField
-          label="Cidade"
-          variant="outlined"
-          value={dip.city}
-          onChange={(event) => handleDip(event.target.value, "city")} />
-        <TextField
-          label="Local"
-          variant="outlined"
-          value={dip.place}
-          onChange={(event) => handleDip(event.target.value, "place")} />
-        <TextField
-          label="Número da DIP"
-          variant="outlined" 
-          type={"number"}
-          value={dip.dipNumber} onChange={(event) => handleDip(event.target.value, "dipNumber")} />
-        <h2>Participantes da DIP</h2>
-
-        {dipParticipants?.map((participant, index) =>
-          <div key={index}>
-            <Participant
-              {...participant}
-              dipNumber={dip.dipNumber.toString()}
-              index={index}
-              updateParticipant={(param: IParticipant, index: number) => updateParticipants(param, index)}
-              removeParticipant={(id: number) => subParticipant(id)}
-            />
-          </div>
-        )}
-
-        <Button
-          variant="contained"
-          onClick={() => addParticipant()}
-          endIcon={<AddCircleIcon />}
-        >
-          Adicionar
-        </Button>
-      </Paper>
+      <form onSubmit={handleDipSubmit}>
+        <Paper sx={{ p: 4 }} elevation={10}>
+          <h2>Inscrição da DIP</h2>
+          <TextField
+            label="Data"
+            variant="outlined"
+            value={dip.date}
+            onChange={(event) => handleDip(event.target.value, "date")}
+          />
+          <TextField
+            label="Cidade"
+            variant="outlined"
+            value={dip.city}
+            onChange={(event) => handleDip(event.target.value, "city")} />
+          <TextField
+            label="Local"
+            variant="outlined"
+            value={dip.place}
+            onChange={(event) => handleDip(event.target.value, "place")} />
+          <TextField
+            label="Número da DIP"
+            variant="outlined"
+            type={"number"}
+            value={dip.dipNumber} onChange={(event) => handleDip(event.target.value, "dipNumber")}
+          />
+          <Button
+            variant="contained"
+            color={"success"}
+            type="submit"
+            endIcon={<AddCircleIcon />}
+          >
+            Adicionar
+          </Button>
+        </Paper>
+      </form>
+      {showParticipants ?
+        <Participant />
+        : <></>
+      }
     </Container>
   );
 };
