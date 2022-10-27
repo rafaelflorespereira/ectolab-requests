@@ -8,6 +8,7 @@ import DIP from "./pages/forms/DIP"
 import Login from "./pages/Login"
 import Search from "./pages/Search"
 import Home from "./pages/Home"
+import Participant from './components/Participant';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/dip",
     element: <DIP />,
+  },
+  {
+    path: "/participantes",
+    element: <Participant />,
   }
 ]);
 
