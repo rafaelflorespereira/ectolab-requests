@@ -18,6 +18,7 @@ import {
 } from "../../typings/typing";
 
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 const DIP: React.FC = () => {
   const [dip, setDip] = useState<DipType>(defaultDip)
@@ -46,47 +47,41 @@ const DIP: React.FC = () => {
 
   return (
     <Container sx={{ display: "flex", gap: 4, justifyContent: "center" }}>
-      <Paper sx={{ minWidth: 80, maxWidth: 220, p: 4 }} elevation={10}>
+      <Paper sx={{ minWidth: 80, p: 4, display: "flex", flexDirection: "column" }} elevation={10}>
         {/* !Todo: change to typographic HTML H1 element  */}
-        <h2>DIP</h2>
         <TextField
           label="Número da DIP"
           variant="outlined"
           type={"number"}
+          value={dip.dipNumber}
           sx={{ my: 1 }}
-          value={dip.dipNumber} onChange={(event) => handleDip(event.target.value, "dipNumber")}
+          onChange={(event) => handleDip(event.target.value, "dipNumber")}
         />
-        <TextField
-          label="Cidade"
-          variant="outlined"
-          value={dip.city}
-          sx={{ my: 1 }}
-          onChange={(event) => handleDip(event.target.value, "city")} />
-        <Box sx={{ minWidth: 40, my: 2 }}>
+        <Box sx={{ my: 1 }}>
           <FormControl fullWidth>
             <InputLabel id="city-label-id">Cidade</InputLabel>
             <Select
               labelId="city-label-id"
               id="city-id"
               label="Cidade"
-              sx={{ minWidth: 30 }}
             >
               {cities?.map((city, id) => <MenuItem key={id} value={city} selected>{city}</MenuItem>)}
             </Select>
           </FormControl>
         </Box>
         <TextField
+          sx={{ my: 1 }}
           label="Local"
           variant="outlined"
           value={dip.place}
-          sx={{ my: 1 }}
-          onChange={(event) => handleDip(event.target.value, "place")} />
+          onChange={(event) => handleDip(event.target.value, "place")}
+        />
 
         <TextField
+          sx={{ my: 1 }}
           label="Data"
           variant="outlined"
           value={dip.date}
-          sx={{ my: 1 }}
           onChange={(event) => handleDip(event.target.value, "date")}
         />
         <Button
@@ -94,7 +89,7 @@ const DIP: React.FC = () => {
           color={"success"}
           type="submit"
           sx={{ my: 1 }}
-          endIcon={<AddCircleIcon />}
+          endIcon={<NavigateNextIcon />}
           href={"/participantes"}
           fullWidth
           onClick={handleDipSubmit}
