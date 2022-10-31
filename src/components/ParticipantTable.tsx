@@ -86,10 +86,10 @@ function createData(name: string, calories: number, fat: number) {
   return { name, calories, fat };
 }
 
-export const CustomPaginationActionsTable: React.FC<{ participants: IParticipant[] }> = ({ participants }) => {
+export const CustomPaginationActionsTable: React.FC = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
+  
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - participants.length) : 0;
