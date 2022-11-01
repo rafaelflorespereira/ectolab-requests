@@ -13,17 +13,18 @@ import {
 
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { CustomPaginationActionsTable } from "./ParticipantTable"
-import { IParticipant, ParticipantTypes } from '../typings/typing';
-
-const defaultParticipant: IParticipant = { name: "", email: "", role: "", dipNumber: "1" }
+import { IParticipant, ParticipantTypes, defaultParticipant } from '../typings/typing';
+import { useDispatch } from "react-redux"
+import { participantsActions } from '../store';
 
 const Participant: React.FC = () => {
   const roles = ["Cronometrista", "Observador Parapsíquico", "Energizador 1", "Energizador 2", "Energizador 3", "Monitor 1", "Monitor 2", "Acoplamento 1", "Acoplamento 2", "Acoplamento 3", "Acoplamento 4", "Acoplamento 5", "Acoplamento 6", "Acoplamento 7", "Acoplamento 8", "Acoplamento 9", "Acoplamento 10", "Acoplamento 11", "Acoplamento 12"]
-  const [participants, setParticipants] = useState<IParticipant[]>([])
   const [participant, setParticipant] = useState<IParticipant>(defaultParticipant)
+  const dispatch = useDispatch()
   const addParticipant = () => {
-    setParticipants(prevState => [...prevState, participant])
+    dispatch(participantsActions.createParticipant({ payload: participant }))
   }
+
   const handleParticipant = (value: string, type: ParticipantTypes) => {
     const newParticipant = participant
     newParticipant[type] = value
@@ -82,7 +83,7 @@ const Participant: React.FC = () => {
       </Paper>
 
       <Paper elevation={10}>
-        <CustomPaginationActionsTable participants={participants} />
+        <CustomPaginationActionsTable />
       </Paper>
     </Container>
   )
