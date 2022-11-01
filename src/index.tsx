@@ -9,6 +9,8 @@ import Login from "./pages/Login"
 import Search from "./pages/Search"
 import Home from "./pages/Home"
 import Participant from './components/Participant';
+import { Provider } from 'react-redux';
+import { store } from "./store"
 
 const router = createBrowserRouter([
   {
@@ -38,5 +40,7 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <RouterProvider router={router} />
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
 );

@@ -1,5 +1,5 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
-import { IParticipant } from "../typings/typing"
+import { defaultDip, IParticipant } from "../typings/typing"
 
 //Participants
 //createParticipant
@@ -25,8 +25,17 @@ const participantsSlice = createSlice({
 
 //Dip
 // createDip, getDip
+const dipSlice = createSlice({
+  name: "dip",
+  initialState: defaultDip,
+  reducers: {
+    createDip(state, action) {
+      state = action.payload
+    }
+  }
+})
 
-export const store = configureStore({ reducer: { participants: participantsSlice.reducer } })
+export const store = configureStore({ reducer: { participants: participantsSlice.reducer, dip: dipSlice.reducer } })
 
 export const participantsActions = participantsSlice.actions
 // Infer the `RootState` and `AppDispatch` types from the store itself
