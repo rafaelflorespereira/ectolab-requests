@@ -1,16 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import {
-  createBrowserRouter,
-  RouterProvider
-} from "react-router-dom";
-import DIP from "./pages/forms/DIP"
-import Login from "./pages/Login"
-import Search from "./pages/Search"
-import Home from "./pages/Home"
-import Participant from './components/Participant';
-import { Provider } from 'react-redux';
-import { store } from "./store"
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import DIP from "./pages/forms/DIP";
+import Login from "./pages/Login";
+import Search from "./pages/Search";
+import Home from "./pages/Home";
+import Participant from "./components/Participant";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 const router = createBrowserRouter([
   {
@@ -32,11 +29,11 @@ const router = createBrowserRouter([
   {
     path: "/participantes",
     element: <Participant />,
-  }
+  },
 ]);
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 
 root.render(

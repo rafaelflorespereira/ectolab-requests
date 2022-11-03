@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const Search = () => {
-    return (
-        <>
-            <h1>Search</h1>
-        </>
-    )
-}
+  return (
+    <>
+      <h1>Search</h1>
+    </>
+  );
+};
 
-export default Search
+export default Search;

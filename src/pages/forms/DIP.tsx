@@ -8,46 +8,41 @@ import {
   Box,
   InputLabel,
   Select,
-  MenuItem
+  MenuItem,
 } from "@mui/material";
 
-import {
-  defaultDip,
-  DipTypes,
-  DipType
-} from "../../typings/typing";
-
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { defaultDip, DipTypes, DipType } from "../../typings/typing";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 const DIP: React.FC = () => {
-  const [dip, setDip] = useState<DipType>(defaultDip)
-  const cities = ["São Paulo", "Foz do Iguaçu", "Curitiba"]
-  const [showParticipants, setShowParticipants] = useState<boolean>(false)
+  const [dip, setDip] = useState<DipType>(defaultDip);
+  const cities = ["São Paulo", "Foz do Iguaçu", "Curitiba"];
 
   // simple validation checking only if the form is not empty
   const isDipValid = () => {
     for (const dipProperty in dip) {
       if (dipProperty) {
-        setShowParticipants(true)
       }
     }
-  }
+  };
 
-  const handleDipSubmit = (event: React.FormEvent) => {
+  const handleDipSubmit = () => {
     // event.preventDefault()
-    isDipValid()
-  }
+    isDipValid();
+  };
 
   const handleDip = (value: string, type: DipTypes) => {
-    const newDip = dip
-    newDip[type] = value
-    setDip({ ...newDip })
-  }
+    const newDip = dip;
+    newDip[type] = value;
+    setDip({ ...newDip });
+  };
 
   return (
     <Container sx={{ display: "flex", gap: 4, justifyContent: "center" }}>
-      <Paper sx={{ minWidth: 80, p: 4, display: "flex", flexDirection: "column" }} elevation={10}>
+      <Paper
+        sx={{ minWidth: 80, p: 4, display: "flex", flexDirection: "column" }}
+        elevation={10}
+      >
         {/* !Todo: change to typographic HTML H1 element  */}
         <TextField
           label="Número da DIP"
@@ -60,12 +55,12 @@ const DIP: React.FC = () => {
         <Box sx={{ my: 1 }}>
           <FormControl fullWidth>
             <InputLabel id="city-label-id">Cidade</InputLabel>
-            <Select
-              labelId="city-label-id"
-              id="city-id"
-              label="Cidade"
-            >
-              {cities?.map((city, id) => <MenuItem key={id} value={city} selected>{city}</MenuItem>)}
+            <Select labelId="city-label-id" id="city-id" label="Cidade">
+              {cities?.map((city, id) => (
+                <MenuItem key={id} value={city} selected>
+                  {city}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Box>
